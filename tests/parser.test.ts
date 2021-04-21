@@ -1,8 +1,7 @@
 import * as E from 'fp-ts/lib/Either';
 import { pipe } from 'fp-ts/lib/function';
 
-import { JSONP } from '../src/parsers';
-import * as P from '../src/parsers';
+import { parse, flatten } from '../src';
 
 import fs from 'fs';
 import path from 'path';
@@ -16,16 +15,13 @@ describe('RFC 8269 test suite', () => {
       const jsonStr = fs.readFileSync(`${BASE_DIR}/${file}`, 'utf-8');
       if (file.startsWith('y_')) {
          it(file, () => {
-            console.log(file);
-            assert.deepStrictEqual(
-               pipe(P.parse(JSONP)(jsonStr), E.map(P.flatten)),
-               E.right(jsonStr)
-            );
+            const res = pipe(parse(jsonStr), E.map(flatten));
+            assert.deepStrictEqual(res, E.right(JSON.parse(jsonStr)));
          });
       }
-      if (file.startsWith('_n')) {
+      if (file.startsWith('n_')) {
          it(file, () => {
-            assert.strictEqual(pipe(P.parse(JSONP)(jsonStr), E.isLeft), true);
+            assert.strictEqual(pipe(parse(jsonStr), E.isLeft), true);
          });
       }
    });

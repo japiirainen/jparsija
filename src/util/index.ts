@@ -29,7 +29,8 @@ const hexCharParser = C.oneOf('0123456789abcdefABCDEF');
  *  Tab is replaced with `\t`
  *  Unicode `\u0000`
  */
-export const JSONStringEscapeParser = pipe(
+
+export const JSONStringEscapesParser = pipe(
    pipe(
       S.string('\\"'),
       P.map(() => '"')
