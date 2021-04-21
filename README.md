@@ -1,3 +1,3 @@
 # jparsija
 
-Simple JSON parser written using parser combinators.
+Learning fp by writing a json parser using parser combinators
