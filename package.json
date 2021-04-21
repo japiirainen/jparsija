@@ -8,11 +8,13 @@
       "build": "tsdx build",
       "test": "tsdx test",
       "lint": "tsdx lint",
-      "prepare": "tsdx build"
+      "prepare": "tsdx build",
+      "exe": "node ./dist/index.js"
    },
    "dependencies": {
       "fp-ts": "^2.10.4",
-      "parser-ts": "^0.6.13"
+      "parser-ts": "^0.6.13",
+      "ts-node": "^9.1.1"
    },
    "devDependencies": {
       "@types/node": "^14.14.41",
