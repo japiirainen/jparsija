@@ -37,3 +37,40 @@ export type JSON =
    | JSONNumber
    | JSONBoolean
    | JSONNull;
+
+export const JSONObject: (
+   objs: {
+      key: string;
+      value: JSON;
+   }[]
+) => JSONObject = objs => ({
+   _tag: 'object',
+   value: objs.map(v => ({
+      key: v.key,
+      value: v.value,
+   })),
+});
+
+export const JSONArray: (js: Array<JSON>) => JSONArray = js => ({
+   _tag: 'array',
+   value: js,
+});
+
+export const JSONString: (value: string) => JSONString = v => ({
+   _tag: 'string',
+   value: v,
+});
+
+export const JSONNumber: (value: number) => JSONNumber = v => ({
+   _tag: 'number',
+   value: v,
+});
+
+export const JSONNull: () => JSONNull = () => ({
+   _tag: 'null',
+});
+
+export const JSONBoolean: (value: boolean) => JSONBoolean = v => ({
+   _tag: 'boolean',
+   value: v,
+});

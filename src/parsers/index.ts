@@ -58,7 +58,7 @@ export const JSONStringParser = pipe(
       )
    ),
    P.apFirst(C.char('"')),
-   P.map((value): JSONString => ({ _tag: 'string', value }))
+   P.map(JSONString)
 );
 export const JSONNumberParser = pipe(
    S.fold([
@@ -73,7 +73,7 @@ export const JSONNumberParser = pipe(
       ),
    ]),
    P.map(s => +s),
-   P.map((value): JSONNumber => ({ _tag: 'number', value }))
+   P.map(JSONNumber)
 );
 
 export const JSONNullParser = pipe(
@@ -89,7 +89,7 @@ export const JSONBooleanParser = pipe(
          P.map(() => false)
       )
    ),
-   P.map((value): JSONBoolean => ({ _tag: 'boolean', value }))
+   P.map(JSONBoolean)
 );
 
 const SpaceParser = C.many(C.oneOf(' \n'));
@@ -124,7 +124,7 @@ export const JSONObjectParser = pipe(
    P.apFirst(SpaceParser),
    P.apFirst(C.char('}')),
    P.apFirst(SpaceParser),
-   P.map((data): JSONObject => ({ _tag: 'object', value: data }))
+   P.map(JSONObject)
 );
 
 export const JSONArrayParser = pipe(
@@ -140,7 +140,7 @@ export const JSONArrayParser = pipe(
    P.apFirst(SpaceParser),
    P.apFirst(C.char(']')),
    P.apFirst(SpaceParser),
-   P.map((value): JSONArray => ({ _tag: 'array', value }))
+   P.map(JSONArray)
 );
 
 export const JSONParser = pipe(JSONValueParser, P.apFirst(P.eof()));
